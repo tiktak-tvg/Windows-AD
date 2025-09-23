@@ -1,6 +1,7 @@
 Команды можно производить как в cmd, так и в powershell. Желательно в cmd.
-P.s. Запуск cmd под правами администратора.
 
+P.s. Запуск cmd под правами администратора.
+```
 C:\Windows\system32>help
 For more information on a specific command, type HELP command-name
 ASSOC          Displays or modifies file extension associations.
@@ -102,3 +103,4 @@ WMIC           Displays WMI information inside interactive command shell.
 For more information on tools see the command-line reference in the online help.
 
 C:\Windows\system32>
+```
