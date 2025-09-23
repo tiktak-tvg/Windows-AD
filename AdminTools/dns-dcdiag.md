@@ -1,18 +1,18 @@
 ```
 Например, чтобы проверить корректность работы DNS на всех контроллерах домена, используйте команду:
 
-dcdiag.exe /s:ca-dc-fsmo-01.rosstat.local /test:dns /e /v
+dcdiag.exe /s:ca-dc01.domain.local /test:dns /e /v
 
 на всех контроллерах (если все ОК, везде должно быть Pass). Если где-то будет указано Fail, нужно выполнить проверку этого теста на указанном DC:
 
-dcdiag.exe /s:ca-dc-fsmo-01.rosstat.local /test:dns /DnsForwarders /v
+dcdiag.exe /s:ca-dc01.domain.local /test:dns /DnsForwarders /v
 
 Получить расширенную информацию по результатам тестов контроллера домена и сохранить ее в текстовый файл:
 
-dcdiag /s:ca-dc-fsmo-01.rosstat.local /v >> c:\ps\dc01_dcdiag_test.log
+dcdiag /s:ca-dc01.domain.local /v >> c:\ps\dc01_dcdiag_test.log
 
 Следующая команда PowerShell позволяет вывести только информацию о результатах выполненных тестов (Passed или Failed):
-Dcdiag /s:ca-dc-fsmo-01.rosstat.local | select-string -pattern '\. (.*) \b(passed|failed)\b test (.*)'
+Dcdiag /s:ca-dc01.domain.local | select-string -pattern '\. (.*) \b(passed|failed)\b test (.*)'
 
 Опросить состояние всех контроллеров в домене:
 
