@@ -110,8 +110,9 @@
 > Если нарушается межсайтовая репликация между доменами, что происходит с DNS?
 <img width="1278" height="462" alt="image" src="https://github.com/user-attachments/assets/93217be7-d5b7-4851-8786-5a30cf6b2f1b" />
 <img width="1281" height="643" alt="image" src="https://github.com/user-attachments/assets/1c6fcf05-394b-4359-8bc1-a1434c1bc18f" />
+<img width="1279" height="363" alt="image" src="https://github.com/user-attachments/assets/aa5f3b8b-246a-46be-aba6-280ba7756593" />
 
-При нарушении межсайтовой репликации в Active Directory (AD) DNS-служба сталкивается с рядом критических проблем, так как в большинстве корпоративных сетей зоны DNS интегрированы в AD и используют её механизмы для передачи данных.
+> При нарушении межсайтовой репликации в Active Directory (AD) DNS-служба сталкивается с рядом критических проблем, так как в большинстве корпоративных сетей зоны DNS интегрированы в AD и используют её механизмы для передачи данных.
 
 Основные последствия для DNS:
 
