@@ -87,5 +87,8 @@
 
 <img width="1233" height="511" alt="image" src="https://github.com/user-attachments/assets/f3b0eb92-cab2-4412-b03b-c006473da3b8" />
 
+Выбираем в меню обновить и результат на двух контроллерах домена.
 
+<img width="1234" height="653" alt="image" src="https://github.com/user-attachments/assets/f6abc192-7ffc-47bb-b577-5b603d408b06" />
 
+<img width="1253" height="697" alt="image" src="https://github.com/user-attachments/assets/7d0a7b79-660a-48ba-bf8d-39b3922fba2d" />
