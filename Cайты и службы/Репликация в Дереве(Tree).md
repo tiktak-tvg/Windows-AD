@@ -103,6 +103,8 @@
 - **Scavenging (Очистка):** Процесс удаления сервером тех записей, чей срок «старения» истек. 
 > [!WARNING]
 > Рекомендация: Всегда проверяйте, включена ли очистка на уровне как сервера, так и конкретной зоны DNS. 
+<img width="1233" height="479" alt="image" src="https://github.com/user-attachments/assets/8f7bc106-6e0c-43b9-b03d-a26e25397594" />
+<img width="1236" height="486" alt="image" src="https://github.com/user-attachments/assets/e273198d-202d-46d9-ae33-464390c10d6b" />
 
 > [!WARNING]
 > Если нарушается межсайтовая репликация между доменами, что происходит с DNS?
