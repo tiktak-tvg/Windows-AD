@@ -69,7 +69,7 @@
 
 <img width="1276" height="498" alt="image" src="https://github.com/user-attachments/assets/f9615f17-b2c4-4955-b372-b75193edba78" />
 
-> [!Warning]
+> [!WARNING]
 > Если после обновления не появилась запись можно прибегнуть к перезагрузки зоны, тогда точно должна появиться.
 
 Например, создадим запись А на втором контроллере windc02.tiktak.local
@@ -81,5 +81,11 @@
 Как видим запись появилась.
 
 <img width="1237" height="378" alt="image" src="https://github.com/user-attachments/assets/6c091b57-2775-4ac3-ad98-e774e856da14" />
+
+> [!WARNING]
+> Не забывайте про обратную зону, если обновляете вручную
+
+<img width="1233" height="511" alt="image" src="https://github.com/user-attachments/assets/f3b0eb92-cab2-4412-b03b-c006473da3b8" />
+
 
 
