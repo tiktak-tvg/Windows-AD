@@ -87,8 +87,8 @@ http://go.microsoft.com/fwlink/?LinkId=217627.
 C:\Windows\system32>
 ```
 
-```
-Восстановление зоны DNS
+
+### Восстановление зоны DNS
 Если репликация в порядке, попробуйте перезагрузить или воссоздать зону.
 
 Перезагрузка зоны в оснастке DNS:
@@ -108,16 +108,19 @@ C:\Windows\system32>
 Откройте командную строку с правами администратора.
 
 Удалите партицию (она будет автоматически реплицирована с другого DC):
-
+```bash
 cmd
 dnscmd /DeleteDirectoryPartition ForestDnsZones.moscow.local
+```
 Воссоздайте партицию:
-
+```bash
 cmd
 dnscmd /CreateDirectoryPartition ForestDnsZones.moscow.local
+```
 Подождите, пока партиция реплицируется на другие контроллеры домена. Вы можете ускорить это, выполнив на проблемном сервере:
-
+```bash
 cmd
 repadmin /syncall /A /e /P
+```
 После репликации зона _msdcs.moscow.local должна автоматически восстановиться.
 ```
