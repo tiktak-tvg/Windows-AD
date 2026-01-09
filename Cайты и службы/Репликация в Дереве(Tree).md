@@ -19,3 +19,15 @@
 - **Интеграция зон:** В Windows-сетях зоны DNS часто интегрированы в Active Directory, что позволяет безопасно реплицировать данные DNS вместе с остальными данными домена. 
 
 <img width="1271" height="491" alt="image" src="https://github.com/user-attachments/assets/efe28144-c81e-4a46-b190-42b08b7aa0b2" />
+
+И так проверяем, что DNS среплицированы. Проверить можно по Серийному номеру Начальной зоны SOA.
+
+Первый DC: windc01.tiktak.local.
+
+<img width="1277" height="580" alt="image" src="https://github.com/user-attachments/assets/57d29977-dbef-49ef-a4ff-b33d30e6e432" />
+
+Второй DC: windc02.tiktak.local.
+
+<img width="1303" height="634" alt="image" src="https://github.com/user-attachments/assets/bd4d3219-1e07-4bb4-80e6-ecfe10fff241" />
+
+Как видим репликация между ними была, номера должны совпадать и они совпадают.
