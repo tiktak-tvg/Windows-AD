@@ -43,5 +43,27 @@
 - **Риски безопасности:** Устаревшие записи могут быть использованы для атак типа «захват имен» или облегчать злоумышленникам сканирование сети. 
 
 > [!WARNING]
-> Поэтому записи DNS обновляются по рассписанию, которое можно установить. И репликация соответственно.
+> Поэтому, записи DNS обновляются по рассписанию, которое можно установить. И репликация соответственно.
+
+Вернёмся к настройкам репликации. И так нам надо создать например, запись в DNS зоне и посмотреть как она среплицируется. Реплицировать будем вручную, так как по умолчанию она реплицируется через час.
+
+Созадём запись А в зоне DNS первого контроллера домена windc01.tiktak.local.
+
+<img width="1282" height="515" alt="image" src="https://github.com/user-attachments/assets/c30856d2-e400-4cc1-807c-b7e0c7a06a27" />
+
+<img width="1285" height="445" alt="image" src="https://github.com/user-attachments/assets/d0244d95-ed82-40c1-8034-23332d9a82e6" />
+
+<img width="1282" height="531" alt="image" src="https://github.com/user-attachments/assets/d6e1c119-b9b9-4fa2-b9d8-9d7a39931def" />
+
+Добавили. Проверяем Серийный номер на первом контроллере windc01.tiktak.local. он изменился на 1746. 
+
+<img width="1281" height="496" alt="image" src="https://github.com/user-attachments/assets/4533fd9e-7752-4abe-821b-197828c61956" />
+
+Проверяем Серийный номер на втором контроллере windc02.tiktak.local. , что он не появился.
+
+<img width="1304" height="501" alt="image" src="https://github.com/user-attachments/assets/940a69ab-3a88-4906-be2b-22b8d5e9972e" />
+
+Пробуем обновить вручную DNS записи на втором контроллере windc02.tiktak.local.
+
+<img width="1272" height="528" alt="image" src="https://github.com/user-attachments/assets/08fe00d8-9d5b-4856-871d-353edd7b5ce0" />
 
