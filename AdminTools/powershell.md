@@ -76,4 +76,269 @@ Get-DnsServerZone | ForEach-Object {
     }
 }
 ```
+###### скрипт для резервного копирования Stub-зон
+```powershell
+$BackupPath = "C:\temp\DNS_Stub_Backup"
+$Date = Get-Date -Format "yyyyMMdd_HHmmss"
+$FullBackupPath = "$BackupPath\$Date"
+New-Item -ItemType Directory -Path $FullBackupPath -Force
 
+$StubZones = Get-DnsServerZone | Where-Object { $_.ZoneType -eq "Stub" }
+
+foreach ($Zone in $StubZones) {
+    $ZoneName = $Zone.ZoneName
+    $OutputFile = "$FullBackupPath\$ZoneName.txt"
+    
+    try {
+        # Сохраняем конфигурацию Stub-зоны
+        $Zone | Export-Clixml "$FullBackupPath\$ZoneName.config.xml"
+        
+        # Создаем текстовый файл с информацией о зоне
+        "Stub Zone Configuration: $ZoneName" | Out-File $OutputFile
+        "=" * 50 | Out-File $OutputFile -Append
+        "Master Servers: $($Zone.MasterServers -join ', ')" | Out-File $OutputFile -Append
+        "Zone Type: $($Zone.ZoneType)" | Out-File $OutputFile -Append
+        "Is AD Integrated: $($Zone.IsDsIntegrated)" | Out-File $OutputFile -Append
+        "" | Out-File $OutputFile -Append
+        
+        # Пробуем получить записи, которые есть в Stub-зоне
+        $Records = Get-DnsServerResourceRecord -ZoneName $ZoneName -ErrorAction SilentlyContinue
+        if ($Records) {
+            "DNS Records in Stub Zone:" | Out-File $OutputFile -Append
+            "-" * 30 | Out-File $OutputFile -Append
+            foreach ($Record in $Records) {
+                "$($Record.HostName) $($Record.RecordType) $($Record.RecordData)" | Out-File $OutputFile -Append
+            }
+        } else {
+            "No records found or access denied" | Out-File $OutputFile -Append
+        }
+        
+        Write-Host "Конфигурация Stub-зоны сохранена: $ZoneName" -ForegroundColor Green
+    }
+    catch {
+        Write-Host "Ошибка для Stub-зоны $ZoneName : $($_.Exception.Message)" -ForegroundColor Red
+    }
+}
+```
+###### Единый скрипт полной миграции
+```powershell
+# ЕДИНЫЙ СКРИПТ ДЛЯ ПОЛНОЙ МИГРАЦИИ DNS
+param(
+    [string]$SourceBackupPath = "C:\temp\20251129_121416",
+    [switch]$SkipPrimaryZones = $false,
+    [switch]$SkipStubZones = $false
+)
+
+Write-Host "=== ПОЛНАЯ МИГРАЦИЯ DNS СЕРВЕРА ===" -ForegroundColor Cyan
+
+# 1. Миграция основных зон
+if (-not $SkipPrimaryZones) {
+    Write-Host "`n1. МИГРАЦИЯ ОСНОВНЫХ ЗОН:" -ForegroundColor Yellow
+    
+    if (Test-Path $SourceBackupPath) {
+        $PrimaryZoneFiles = Get-ChildItem "$SourceBackupPath\*.dns"
+        Write-Host "Найдено файлов основных зон: $($PrimaryZoneFiles.Count)" -ForegroundColor White
+        
+        foreach ($File in $PrimaryZoneFiles) {
+            $ZoneName = $File.BaseName
+            try {
+                # Копируем файл в системную папку DNS
+                Copy-Item $File.FullName "C:\Windows\System32\dns\$($File.Name)" -Force
+                
+                # Создаем зону
+                Add-DnsServerPrimaryZone -Name $ZoneName -ZoneFile $File.Name -ErrorAction Stop
+                Write-Host "✓ Основная зона: $ZoneName" -ForegroundColor Green
+            }
+            catch {
+                Write-Host "⚠ $ZoneName : $($_.Exception.Message)" -ForegroundColor Yellow
+            }
+        }
+    } else {
+        Write-Host "Папка с бэкапом не найдена: $SourceBackupPath" -ForegroundColor Red
+    }
+}
+
+# 2. Миграция Stub-зон
+if (-not $SkipStubZones) {
+    Write-Host "`n2. МИГРАЦИЯ STUB-ЗОН:" -ForegroundColor Yellow
+    
+    # Данные Stub-зон (из вашего вывода)
+    $StubZonesData = @(
+        @{Name="chelstat.ru"; MasterServers=@("10.174.20.2")},
+        @{Name="chtnpub.local"; MasterServers=@("10.175.20.10","10.175.20.11")},
+        # ... добавьте все остальные Stub-зоны из предыдущего списка
+        @{Name="yamalstat"; MasterServers=@("10.189.16.3","10.189.16.4")}
+    )
+    
+    foreach ($ZoneConfig in $StubZonesData) {
+        try {
+            Add-DnsServerStubZone -Name $ZoneConfig.Name -MasterServers $ZoneConfig.MasterServers -ErrorAction Stop
+            Write-Host "✓ Stub-зона: $($ZoneConfig.Name)" -ForegroundColor Green
+        }
+        catch {
+            Write-Host "⚠ $($ZoneConfig.Name) : $($_.Exception.Message)" -ForegroundColor Yellow
+        }
+    }
+}
+
+Write-Host "`n=== МИГРАЦИЯ ЗАВЕРШЕНА ===" -ForegroundColor Cyan
+$FinalCount = (Get-DnsServerZone | Where-Object {$_.ZoneName -ne "..TrustAnchors"}).Count
+Write-Host "Итоговое количество зон: $FinalCount" -ForegroundColor Green
+```
+###### Просмотр информации об обратных зонах
+```powershell
+# Посмотреть все обратные зоны и их типы
+$ReverseZones = Get-DnsServerZone | Where-Object { $_.IsReverseLookupZone -eq $true }
+
+Write-Host "ОБРАТНЫЕ DNS ЗОНЫ:" -ForegroundColor Yellow
+$ReverseZones | Format-Table ZoneName, ZoneType, IsDsIntegrated, IsReverseLookupZone -AutoSize
+
+# Посмотреть статистику по обратным зонам
+Write-Host "СТАТИСТИКА ОБРАТНЫХ ЗОН:" -ForegroundColor Cyan
+$ReverseZones | Group-Object ZoneType | Format-Table Name, Count -AutoSize
+
+# Примеры обратных зон (первые 5)
+Write-Host "ПРИМЕРЫ ОБРАТНЫХ ЗОН:" -ForegroundColor Green
+$ReverseZones | Select-Object -First 5 | ForEach-Object {
+    Write-Host "  $($_.ZoneName) ($($_.ZoneType))" -ForegroundColor White
+}
+```
+###### Скрипт для бэкапа обратных зон
+```powershell
+$BackupPath = "C:\temp\DNS_Backup_Reverse"
+$Date = Get-Date -Format "yyyyMMdd_HHmmss"
+$FullBackupPath = "$BackupPath\$Date"
+
+# Создаем директорию
+New-Item -ItemType Directory -Path $FullBackupPath -Force
+
+# Получаем список всех ОБРАТНЫХ зон
+$ReverseZones = Get-DnsServerZone | Where-Object { 
+    $_.IsReverseLookupZone -eq $true -and 
+    $_.ZoneName -ne "..TrustAnchors"
+}
+
+Write-Host "Найдено обратных зон для экспорта: $($ReverseZones.Count)" -ForegroundColor Yellow
+
+# Экспортируем каждую обратную зону через DNSCMD
+foreach ($Zone in $ReverseZones) {
+    $ZoneName = $Zone.ZoneName
+    try {
+        # Используем DNSCMD для экспорта
+        dnscmd . /ZoneExport $ZoneName "$ZoneName.dns"
+        
+        # Копируем файл из системной папки DNS
+        $SourceFile = "C:\Windows\System32\dns\$ZoneName.dns"
+        $DestFile = "$FullBackupPath\$ZoneName.dns"
+        
+        if (Test-Path $SourceFile) {
+            Copy-Item $SourceFile $DestFile
+            Write-Host "✓ Успешно: $ZoneName" -ForegroundColor Green
+        } else {
+            Write-Host "✗ Файл не создан: $ZoneName" -ForegroundColor Red
+        }
+    }
+    catch {
+        Write-Host "✗ Ошибка: $ZoneName - $($_.Exception.Message)" -ForegroundColor Red
+    }
+}
+
+Write-Host "Резервное копирование ОБРАТНЫХ зон завершено! Файлы в: $FullBackupPath" -ForegroundColor Cyan
+```
+###### Для импорта обратных зон на целевой сервер
+```powershell
+# На ЦЕЛЕВОМ сервере для импорта обратных зон
+$ReverseBackupPath = "C:\temp\DNS_Backup_Reverse\20251129_121416"  # Ваша папка с бэкапом
+
+# Копируем файлы обратных зон в системную папку DNS
+Get-ChildItem "$ReverseBackupPath\*.dns" | ForEach-Object {
+    Copy-Item $_.FullName "C:\Windows\System32\dns\" -Force
+}
+
+# Создаем обратные зоны из файлов
+Get-ChildItem "$ReverseBackupPath\*.dns" | ForEach-Object {
+    $ZoneName = $_.BaseName
+    
+    # Проверяем, является ли зона обратной (обычно содержат in-addr.arpa или ip6.arpa)
+    if ($ZoneName -match "in-addr\.arpa|ip6\.arpa") {
+        try {
+            Add-DnsServerPrimaryZone -Name $ZoneName -ZoneFile $_.Name -PassThru
+            Write-Host "✓ Обратная зона создана: $ZoneName" -ForegroundColor Green
+        }
+        catch {
+            Write-Host "⚠ Обратная зона уже существует или ошибка: $ZoneName" -ForegroundColor Yellow
+        }
+    }
+}
+```
+###### Универсальный скрипт для бэкапа ВСЕХ зон (прямых + обратных)
+```powershell
+$BackupPath = "C:\temp\DNS_Backup_Complete"
+$Date = Get-Date -Format "yyyyMMdd_HHmmss"
+$FullBackupPath = "$BackupPath\$Date"
+
+# Создаем директорию
+New-Item -ItemType Directory -Path $FullBackupPath -Force
+
+# Получаем список ВСЕХ зон (исключаем только системные)
+$AllZones = Get-DnsServerZone | Where-Object { 
+    $_.ZoneType -ne "Forwarder" -and 
+    $_.ZoneName -ne "..TrustAnchors"
+}
+
+Write-Host "Найдено всех зон для экспорта: $($AllZones.Count)" -ForegroundColor Yellow
+
+# Разделяем на прямые и обратные зоны
+$ForwardZones = $AllZones | Where-Object { $_.IsReverseLookupZone -eq $false }
+$ReverseZones = $AllZones | Where-Object { $_.IsReverseLookupZone -eq $true }
+
+Write-Host "Прямые зоны: $($ForwardZones.Count)" -ForegroundColor Green
+Write-Host "Обратные зоны: $($ReverseZones.Count)" -ForegroundColor Blue
+
+# Создаем подпапки для организации
+$ForwardPath = "$FullBackupPath\Forward"
+$ReversePath = "$FullBackupPath\Reverse"
+New-Item -ItemType Directory -Path $ForwardPath -Force
+New-Item -ItemType Directory -Path $ReversePath -Force
+
+# Функция для экспорта зон
+function Export-Zone {
+    param($Zone, $ExportPath)
+    
+    $ZoneName = $Zone.ZoneName
+    try {
+        dnscmd . /ZoneExport $ZoneName "$ZoneName.dns"
+        
+        $SourceFile = "C:\Windows\System32\dns\$ZoneName.dns"
+        $DestFile = "$ExportPath\$ZoneName.dns"
+        
+        if (Test-Path $SourceFile) {
+            Copy-Item $SourceFile $DestFile
+            return "✓ Успешно: $ZoneName"
+        } else {
+            return "✗ Файл не создан: $ZoneName"
+        }
+    }
+    catch {
+        return "✗ Ошибка: $ZoneName - $($_.Exception.Message)"
+    }
+}
+
+# Экспортируем прямые зоны
+Write-Host "`nЭкспорт прямых зон:" -ForegroundColor Green
+foreach ($Zone in $ForwardZones) {
+    $Result = Export-Zone -Zone $Zone -ExportPath $ForwardPath
+    Write-Host $Result -ForegroundColor $(if ($Result -like "✓*") { "Green" } else { "Red" })
+}
+
+# Экспортируем обратные зоны
+Write-Host "`nЭкспорт обратных зон:" -ForegroundColor Blue
+foreach ($Zone in $ReverseZones) {
+    $Result = Export-Zone -Zone $Zone -ExportPath $ReversePath
+    Write-Host $Result -ForegroundColor $(if ($Result -like "✓*") { "Green" } else { "Red" })
+}
+
+Write-Host "`nПолное резервное копирование завершено!" -ForegroundColor Cyan
+Write-Host "Прямые зоны: $ForwardPath" -ForegroundColor Green
+Write-Host "Обратные зоны: $ReversePath" -ForegroundColor Blue
+```
