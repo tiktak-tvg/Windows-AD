@@ -3,33 +3,67 @@
 Если у вас возникли проблемы со службой **KDC**, вот шаги для диагностики и решения:
 
 > Проверка состояния службы **KDC**
-
+```сmd
+В cmd: net start | findstr KDC
+В PowerShell: Get-Service -Name KDC
+```
 Служба **KDC** работает на каждом контроллере домена. Убедитесь, что служба запущена.
 
-> Проверка связанных служб
+> Проверка зависимостей KDC
 
+Узнать, какие службы требуются для запуска KDC:
+```powershell
+Get-Service -Name KDC -RequiredServices
+```
+И какие службы зависят от KDC:
+```powershell
+Get-Service -Name KDC -DependentServices
+```
+> Просмотр всех запущенных служб с фильтром по ключевым словам
+```сmd
+net start | findstr /i "Active Directory DNS Netlogon Time KDC"
+```
 Убедитесь, что служба **Active Directory Domain Services (AD DS)** запущена, так как KDC зависит от нее.
 
-> Проверка сетевых настроек
+> Проверка конкретной службы через sc query
 
-Убедитесь, что контроллер домена имеет правильные настройки DNS и может разрешать имена других контроллеров домена.
-
-> Проверка времени
-
-Протокол **Kerberos** чувствителен к расхождению во времени. Убедитесь, что время на контроллере домена синхронизировано с другими контроллерами и с внешним источником времени.
-
-> Проверка журналов событий
-
-Ищите ошибки, связанные с **KDC**, в журнале событий (Event Viewer) в разделе **"Журналы Windows" -> "Система" и "Журналы приложений и служб" -> "Microsoft" -> "Windows" -> "KDC".**
-
-Проверка репликации **Active Directory**
-
-Если репликация AD нарушена, это может повлиять на работу KDC.
-
-> Проверка записей DNS
-
-Убедитесь, что в **DNS** присутствуют записи ** _kerberos и _kdc** для домена.
-
+Для AD DS (имя службы — NTDS):
+```сmd
+sc query NTDS
+```
+Для DNS Server - Проверка записей DNS:
+```сmd
+sc query DNS
+```
+Проверка работы DNS через nslookup
+```cmd
+nslookup -type=SRV _kerberos._tcp.%USERDNSDOMAIN%
+```
+Для Netlogon - Проверка журналов событий:
+```сmd
+sc query Netlogon
+```
+Для службы времени:
+```сmd
+sc query W32Time
+```
+Для самой KDC:
+```сmd
+sc query KDC
+```
+###### Проверка через PowerShell
+Получение статуса нескольких служб сразу
+```powershell
+Get-Service -Name NTDS, DNS, Netlogon, W32Time, KDC | Format-Table -AutoSize
+```
+Если имена служб отличаются в русской версии, можно использовать отображаемые имена:
+```powershell
+Get-Service -DisplayName "*Active Directory*", "*DNS*", "*Netlogon*", "*Windows Time*", "*KDC*"
+```
+Более детальная информация
+```powershell
+Get-Service -Name NTDS, DNS, Netlogon, W32Time, KDC | Select-Object Name, DisplayName, Status, StartType
+```
 Если служба **KDC** не запускается или возникают ошибки, вот некоторые конкретные действия:
 
 > Перезапуск службы KDC
