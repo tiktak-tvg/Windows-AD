@@ -75,13 +75,27 @@
 
 <img width="1572" height="312" alt="image" src="https://github.com/user-attachments/assets/1df9b7d0-e086-4a87-96b4-80d4b3bcc944" />
 
-Диск появился. Если требуется узнать какой именно диск вы подключили, если много дисков подключено, то смотрите серийный номер.
+LUN появился. Если требуется узнать какой именно LUN вы подключили, если их много подключено, то смотрите серийный номер.
 
 <img width="1613" height="307" alt="image" src="https://github.com/user-attachments/assets/97f3cdd8-6e57-48a0-a1d9-adc5cd7b288a" />
 
+<img width="1365" height="730" alt="image" src="https://github.com/user-attachments/assets/daadd3eb-3b6d-4ee0-a95d-61b0c05b1709" />
 
+Далее, настроим его
 
+<img width="1245" height="382" alt="image" src="https://github.com/user-attachments/assets/eb97a1eb-031e-4044-b44c-6a49dd5d417f" />
 
+<img width="1361" height="782" alt="image" src="https://github.com/user-attachments/assets/774783d1-0336-4c7c-8917-f00634728c9c" />
+
+<img width="1342" height="770" alt="image" src="https://github.com/user-attachments/assets/957f0d63-49ee-42cf-abcf-bd49f52feeb1" />
+
+<img width="1352" height="809" alt="image" src="https://github.com/user-attachments/assets/ea377005-223b-4b6b-ba4f-9d80045e0673" />
+
+<img width="1158" height="582" alt="image" src="https://github.com/user-attachments/assets/5448c8fb-5581-407b-9f8a-0ff5bf73821d" />
+
+<img width="1549" height="249" alt="image" src="https://github.com/user-attachments/assets/40b1a2b9-78b7-4cde-8472-15348db463c2" />
+
+Всё подключили!
 
 
 
