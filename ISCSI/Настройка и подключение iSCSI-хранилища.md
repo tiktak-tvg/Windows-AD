@@ -25,6 +25,13 @@
 
 <img width="1894" height="420" alt="image" src="https://github.com/user-attachments/assets/91a489f9-549c-4ce6-afd1-6231ee8476b2" />
 
+Перед созданием виртуального диска, нужно его сначала инициализировать
+
+<img width="1232" height="710" alt="image" src="https://github.com/user-attachments/assets/b6a20ba8-09cc-4394-bf59-42857452f3ef" />
+
+Иначе он его не увидит
+
+<img width="1352" height="682" alt="image" src="https://github.com/user-attachments/assets/1d1e9fed-29c1-4669-8674-60f87fe8eda4" />
 
 При создании диска можно указать его полный размер или который вам нужен и тип диска.
 
