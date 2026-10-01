@@ -97,6 +97,16 @@ LUN появился. Если требуется узнать какой име
 
 Всё подключили!
 
+Теперь можно установить на него виртуальную машину.
+
+<img width="1426" height="608" alt="image" src="https://github.com/user-attachments/assets/2a49f0d3-d075-4c58-a8d8-463374b961b2" />
+
+<img width="1377" height="640" alt="image" src="https://github.com/user-attachments/assets/bfe66623-d713-481e-b4dd-22b045d6f98d" />
+
+<img width="1398" height="833" alt="image" src="https://github.com/user-attachments/assets/5409da29-e184-4c70-9469-38bee1337347" />
+
+<img width="1447" height="598" alt="image" src="https://github.com/user-attachments/assets/8f18b4b1-4f69-449d-a212-70df8e5873c7" />
+
 
 
 
