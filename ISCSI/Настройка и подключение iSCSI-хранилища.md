@@ -73,6 +73,12 @@
 
 <img width="1581" height="270" alt="image" src="https://github.com/user-attachments/assets/4fa7a8a3-0bf3-4374-8570-cf01feceaacf" />
 
+<img width="1572" height="312" alt="image" src="https://github.com/user-attachments/assets/1df9b7d0-e086-4a87-96b4-80d4b3bcc944" />
+
+Диск появился. Если требуется узнать какой именно диск вы подключили, если много дисков подключено, то смотрите серийный номер.
+
+<img width="1613" height="307" alt="image" src="https://github.com/user-attachments/assets/97f3cdd8-6e57-48a0-a1d9-adc5cd7b288a" />
+
 
 
 
