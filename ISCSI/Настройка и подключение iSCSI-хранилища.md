@@ -17,3 +17,6 @@
 
 У кого не добавлено, добавляйте, так как я добавил ранее.
 
+После добавления появится служба ``Microsoft iSCSI Target Server``
+
+<img width="1295" height="806" alt="image" src="https://github.com/user-attachments/assets/47108edf-1ac4-4e9b-9337-9c02e6f06910" />
