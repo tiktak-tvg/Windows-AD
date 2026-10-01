@@ -33,10 +33,54 @@
 
 <img width="1352" height="682" alt="image" src="https://github.com/user-attachments/assets/1d1e9fed-29c1-4669-8674-60f87fe8eda4" />
 
-При создании диска можно указать его полный размер или который вам нужен и тип диска.
+Теперь можно выбирать. Если не появились, перезапустите службу и перезайдите в Диспетчер серверов.
+
+<img width="1258" height="742" alt="image" src="https://github.com/user-attachments/assets/e6d93c97-38f5-4fe6-ad03-ede8dd675beb" />
+
+<img width="1242" height="749" alt="image" src="https://github.com/user-attachments/assets/65b2a8e7-dcd1-4365-9f96-89228ca9f1b8" />
+
+При создании диска можно указать его полный размер или который вам нужен и тип диска. Я выбрал полный размер и фиксированный.
 
 - **Fixed Size** – диск фиксированного размера, который при создании сразу занимает все выделенное для него место. Это формат диска обеспечивает лучшую производительность и подходит для продуктивных систем с высокой дисковой активностью и повышенными требованиями к IOPS
 - **Dynamically expanding** – такой диск занимает изначально немного место и расширяется по мере записи в него. Такой тип диска позволяет сэкономить место на хранилище, но уступает в скорости фиксированным дискам из за необходимости постоянного расширения
 - **Differencing** – дифференциальный (или разностный диск), который основывается на некотором родительском диске и содержит изменения относительного родительского (используется крайне редко, обычно в сценариях виртуализации с базовым образом/VDI).
+
+<img width="1230" height="747" alt="image" src="https://github.com/user-attachments/assets/ce6f6d7a-3383-4b53-8c40-89f39460574e" />
+
+Если вы присоединяете потерянный LUN, то лучше снять эту галочку
+
+<img width="1233" height="748" alt="image" src="https://github.com/user-attachments/assets/28581a07-4191-4695-8c18-25e098ead48e" />
+
+Так как у меня уже существует Целевой объект и я подключал ранее воспользуюсь им. Кто не подключал, для начала надо его настроить подключение iSCSI хранилища (LUN) в VMWare ESXi.
+
+<img width="1227" height="748" alt="image" src="https://github.com/user-attachments/assets/5ab2801b-e1bf-41e1-8f81-37de15636b46" />
+
+<img width="1232" height="746" alt="image" src="https://github.com/user-attachments/assets/f595379c-1f28-48f6-9eba-8851fbcea272" />
+
+Создал
+
+<img width="1461" height="784" alt="image" src="https://github.com/user-attachments/assets/99de6284-af78-479b-9d1b-454becaf1584" />
+
+Далее подключаем
+
+<img width="1434" height="291" alt="image" src="https://github.com/user-attachments/assets/a46e57ec-3dca-4ba5-8a00-869714367b8c" />
+
+Подключил
+
+<img width="1547" height="551" alt="image" src="https://github.com/user-attachments/assets/8fe20c64-e2d4-4eb3-84e9-607398eef73a" />
+
+Теперь надо подключить в VMWare ESXi.
+
+<img width="1581" height="270" alt="image" src="https://github.com/user-attachments/assets/4fa7a8a3-0bf3-4374-8570-cf01feceaacf" />
+
+
+
+
+
+
+
+
+
+
 
 
