@@ -71,13 +71,12 @@
 
 <img width="1581" height="270" alt="image" src="https://github.com/user-attachments/assets/4fa7a8a3-0bf3-4374-8570-cf01feceaacf" />
 
-<img width="1151" height="697" alt="image" src="https://github.com/user-attachments/assets/39691943-fbe1-4467-8a2b-0ffb9cada170" />
-
+<img width="1572" height="312" alt="image" src="https://github.com/user-attachments/assets/1df9b7d0-e086-4a87-96b4-80d4b3bcc944" />
 
 #### LUN появился. Если требуется узнать какой именно LUN вы подключили, если их много подключено, то смотрите серийный номер.
 Например, если подключен не один сервер
 
-<img width="1572" height="312" alt="image" src="https://github.com/user-attachments/assets/1df9b7d0-e086-4a87-96b4-80d4b3bcc944" />
+<img width="1151" height="697" alt="image" src="https://github.com/user-attachments/assets/39691943-fbe1-4467-8a2b-0ffb9cada170" />
 
 <img width="1447" height="716" alt="image" src="https://github.com/user-attachments/assets/9b3f2970-879d-422c-be03-b3cc86f842c5" />
 
