@@ -71,6 +71,8 @@
 
 <img width="1581" height="270" alt="image" src="https://github.com/user-attachments/assets/4fa7a8a3-0bf3-4374-8570-cf01feceaacf" />
 
+<img width="1166" height="610" alt="image" src="https://github.com/user-attachments/assets/710d5047-4720-45cd-8148-0adc0bce446a" />
+
 <img width="1572" height="312" alt="image" src="https://github.com/user-attachments/assets/1df9b7d0-e086-4a87-96b4-80d4b3bcc944" />
 
 LUN появился. Если требуется узнать какой именно LUN вы подключили, если их много подключено, то смотрите серийный номер.
