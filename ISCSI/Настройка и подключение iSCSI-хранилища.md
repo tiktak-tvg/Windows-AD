@@ -77,6 +77,8 @@
 
 LUN появился. Если требуется узнать какой именно LUN вы подключили, если их много подключено, то смотрите серийный номер.
 
+<img width="1447" height="716" alt="image" src="https://github.com/user-attachments/assets/9b3f2970-879d-422c-be03-b3cc86f842c5" />
+
 <img width="1613" height="307" alt="image" src="https://github.com/user-attachments/assets/97f3cdd8-6e57-48a0-a1d9-adc5cd7b288a" />
 
 <img width="1365" height="730" alt="image" src="https://github.com/user-attachments/assets/daadd3eb-3b6d-4ee0-a95d-61b0c05b1709" />
