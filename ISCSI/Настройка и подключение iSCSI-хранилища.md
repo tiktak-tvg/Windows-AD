@@ -33,7 +33,7 @@
 
 <img width="1352" height="682" alt="image" src="https://github.com/user-attachments/assets/1d1e9fed-29c1-4669-8674-60f87fe8eda4" />
 
-Теперь можно выбирать. Если не появились, перезапустите службу и перезайдите в Диспетчер серверов.
+Теперь можно выбирать. Если не появились, перезайдите в Диспетчер серверов.
 
 <img width="1258" height="742" alt="image" src="https://github.com/user-attachments/assets/e6d93c97-38f5-4fe6-ad03-ede8dd675beb" />
 
