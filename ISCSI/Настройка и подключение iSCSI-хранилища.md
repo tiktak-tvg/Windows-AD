@@ -69,8 +69,6 @@
 
 <img width="1547" height="551" alt="image" src="https://github.com/user-attachments/assets/8fe20c64-e2d4-4eb3-84e9-607398eef73a" />
 
-Теперь надо подключить в VMWare ESXi.
-
 <img width="1581" height="270" alt="image" src="https://github.com/user-attachments/assets/4fa7a8a3-0bf3-4374-8570-cf01feceaacf" />
 
 <img width="1572" height="312" alt="image" src="https://github.com/user-attachments/assets/1df9b7d0-e086-4a87-96b4-80d4b3bcc944" />
@@ -81,7 +79,7 @@ LUN появился. Если требуется узнать какой име
 
 <img width="1365" height="730" alt="image" src="https://github.com/user-attachments/assets/daadd3eb-3b6d-4ee0-a95d-61b0c05b1709" />
 
-Далее, настроим его
+Теперь на доступном iSCSI диске можно создать VMFS (Virtual Machine File System) хранилище для размещения файлов виртуальных машин. Создаем VMFS хранилище на iSCSI LUN в VMWare ESXi.
 
 <img width="1245" height="382" alt="image" src="https://github.com/user-attachments/assets/eb97a1eb-031e-4044-b44c-6a49dd5d417f" />
 
@@ -95,7 +93,7 @@ LUN появился. Если требуется узнать какой име
 
 <img width="1549" height="249" alt="image" src="https://github.com/user-attachments/assets/40b1a2b9-78b7-4cde-8472-15348db463c2" />
 
-Всё подключили!
+Всё создали VMFS хранилище и подключили!
 
 Теперь можно установить на него виртуальную машину.
 
