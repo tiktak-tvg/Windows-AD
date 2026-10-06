@@ -3,3 +3,10 @@
 
 Текущую настройку SAN Policy можно получить с помощью diskpart. По умолчанию используется SAN политика Offline Shared.
 
+Значение SAN policy:
+|                            |
+| --:-- | --:-- |
+OfflineAll	Все диски по умолчанию в offline режиме
+OfflineInternal	Все диски на внутренних шинах в offline
+OfflineShared	Все диски, подключенные через iSCSI, FC или SAS в offline
+OnlineAll	Все диски автоматически переводятся в онлайн режим (рекомендуется)
