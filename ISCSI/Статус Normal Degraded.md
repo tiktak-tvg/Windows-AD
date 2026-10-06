@@ -40,3 +40,5 @@
 - Проверьте физическое оборудование: Проверьте кабели и порты на коммутаторах. Если один из путей не виден в списке, возможно, проблема на физическом уровне.
 
 <img width="1172" height="667" alt="image" src="https://github.com/user-attachments/assets/73a7c007-50cd-42a4-b83f-6d5f19e823d2" />
+
+<img width="1077" height="476" alt="image" src="https://github.com/user-attachments/assets/f98188f9-3417-4f5f-9488-15fba6d0995e" />
