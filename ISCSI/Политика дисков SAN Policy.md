@@ -68,11 +68,12 @@ DiskPart successfully onlined the selected disk
 
 <img width="1161" height="326" alt="image" src="https://github.com/user-attachments/assets/f3884034-93c9-4a83-ba53-0b35e2757f7b" />
 
- Управлять дисками можно не только из Diskpart, но и с помощью встроенного PowerShell модуля Storage. 
+ 
+ #### Управлять дисками можно не только из Diskpart, но и с помощью встроенного PowerShell модуля Storage. 
 
  <img width="658" height="582" alt="48" src="https://github.com/user-attachments/assets/c39d52c7-8ae2-424c-827e-afb53f516813" />
 
- Например, чтобы перевести диск в онлайн я выполнял команду:
+ > Например, чтобы перевести диск в онлайн я выполнял команду:
 
 ```PowerShell
 Set-Disk -Number 1 -IsReadOnly $false
